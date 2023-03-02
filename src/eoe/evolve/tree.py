@@ -16,9 +16,9 @@ from deap.base import Fitness
 from networkx.drawing.nx_agraph import graphviz_layout
 from torchvision.transforms import Compose
 
-from eoe.datasets import MSM, TRAIN_OE_ID
-from eoe.utils.logger import Logger
-from eoe.utils.transformations import GPU_TRANSFORMS
+from src.eoe.datasets import MSM, TRAIN_OE_ID
+from src.eoe.utils.logger import Logger
+from src.eoe.utils.transformations import GPU_TRANSFORMS
 
 
 class Node(object):

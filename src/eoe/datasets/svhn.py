@@ -7,9 +7,9 @@ import torchvision.transforms as transforms
 from PIL import Image
 from torch.utils.data import Subset
 
-from eoe.datasets.bases import TorchvisionDataset
-from eoe.utils.logger import Logger
-from eoe.utils.transformations import ConditionalCompose
+from src.eoe.datasets.bases import TorchvisionDataset
+from src.eoe.utils.logger import Logger
+from src.eoe.utils.transformations import ConditionalCompose
 
 
 class ADSVHN(TorchvisionDataset):

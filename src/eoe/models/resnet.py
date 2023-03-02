@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 from torchvision.models import wide_resnet50_2
-from eoe.models.cbam import CBAM
+from src.eoe.models.cbam import CBAM
 from torch.nn import init
 
 

@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: eoe
+Version: 0.1
+Keywords: deep-learning anomaly-detection one-class-classification outlier-exposure
+Classifier: Development Status :: 4 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3.10

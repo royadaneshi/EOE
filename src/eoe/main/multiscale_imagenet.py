@@ -5,8 +5,8 @@ import os.path as pt
 import torchvision.transforms as transforms
 from torchvision.transforms import Compose
 
-from eoe.main import ms_argsparse, multiscale_experiment, load_setup
-from eoe.models.resnet import WideResNet
+from src.eoe.main import ms_argsparse, multiscale_experiment, load_setup
+from src.eoe.models.resnet import WideResNet
 
 if __name__ == '__main__':
     def modify_parser(parser):

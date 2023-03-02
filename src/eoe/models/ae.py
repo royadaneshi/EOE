@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from eoe.models.cnn import CNN32
+from src.eoe.models.cnn import CNN32
 
 
 class AE32(nn.Module):

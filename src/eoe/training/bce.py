@@ -3,7 +3,7 @@ from tqdm import tqdm
 from torch.nn.functional import binary_cross_entropy_with_logits
 from torch import sigmoid
 from torch.utils.data import DataLoader
-from eoe.training.ad_trainer import ADTrainer
+from src.eoe.training.ad_trainer import ADTrainer
 
 
 class BCETrainer(ADTrainer):

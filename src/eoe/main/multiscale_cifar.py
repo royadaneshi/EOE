@@ -5,8 +5,8 @@ import os.path as pt
 import torchvision.transforms as transforms
 from torchvision.transforms import Compose
 
-from eoe.main import ms_argsparse, multiscale_experiment, load_setup
-from eoe.models.cnn import CNN32
+from src.eoe.main import ms_argsparse, multiscale_experiment, load_setup
+from src.eoe.models.cnn import CNN32
 
 if __name__ == '__main__':
     def modify_parser(parser):

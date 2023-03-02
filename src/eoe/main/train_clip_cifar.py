@@ -1,7 +1,7 @@
 import torch
 import torchvision.transforms as transforms
 
-from eoe.main import default_argsparse, create_trainer, load_setup
+from src.eoe.main import default_argsparse, create_trainer, load_setup
 
 if __name__ == '__main__':
     def modify_parser(parser):

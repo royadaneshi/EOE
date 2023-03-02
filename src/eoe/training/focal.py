@@ -4,7 +4,7 @@ from torch.nn.functional import binary_cross_entropy_with_logits
 from torch import sigmoid
 from torch.utils.data import DataLoader
 from torch.nn.modules.loss import _Loss
-from eoe.training.ad_trainer import ADTrainer
+from src.eoe.training.ad_trainer import ADTrainer
 
 
 # Implementation of the focal loss from https://arxiv.org/abs/1708.02002

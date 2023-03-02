@@ -1,0 +1,2 @@
+Successfully saved code at /home/ubuntu/apply/lab_Dr_Rohban/eoe/data/results/./log_20230302104658_hsc_mnist_one_vs_rest/src.tar.gz
+------ start training cls 0 "zero" ------

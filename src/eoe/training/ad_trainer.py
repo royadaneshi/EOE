@@ -11,11 +11,11 @@ from torch.utils.data.dataloader import DataLoader
 from torchvision.transforms import Compose
 from tqdm import tqdm
 
-from eoe.datasets import load_dataset, str_labels, no_classes, MSM
-from eoe.datasets.bases import TorchvisionDataset, CombinedDataset
-from eoe.datasets.imagenet import ADImageNet21k
-from eoe.models.clip_official.clip.model import CLIP
-from eoe.utils.logger import Logger, ROC, PRC
+from src.eoe.datasets import load_dataset, str_labels, no_classes, MSM
+from src.eoe.datasets.bases import TorchvisionDataset, CombinedDataset
+from src.eoe.datasets.imagenet import ADImageNet21k
+from src.eoe.models.clip_official.clip.model import CLIP
+from src.eoe.utils.logger import Logger, ROC, PRC
 
 
 class NanGradientsError(RuntimeError):

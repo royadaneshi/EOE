@@ -15,9 +15,9 @@ from torchvision.datasets.imagenet import check_integrity, verify_str_arg
 from torchvision.transforms.functional import to_pil_image
 from tqdm import tqdm
 
-from eoe.datasets.bases import TorchvisionDataset
-from eoe.utils.logger import Logger
-from eoe.utils.transformations import ConditionalCompose
+from src.eoe.datasets.bases import TorchvisionDataset
+from src.eoe.utils.logger import Logger
+from src.eoe.utils.transformations import ConditionalCompose
 
 
 class ADMvTec(TorchvisionDataset):

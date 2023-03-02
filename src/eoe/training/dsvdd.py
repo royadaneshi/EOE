@@ -1,7 +1,7 @@
 import torch
 from tqdm import tqdm
 from torch.utils.data import DataLoader
-from eoe.training.ad_trainer import ADTrainer
+from src.eoe.training.ad_trainer import ADTrainer
 
 
 class DSVDDTrainer(ADTrainer):

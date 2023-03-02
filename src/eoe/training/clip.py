@@ -1,10 +1,10 @@
 import torch
-import eoe.models.clip_official.clip as official_clip
+import src.eoe.models.clip_official.clip as official_clip
 from torchvision import transforms
 from torchvision.transforms import Compose
 from torch.utils.data import DataLoader
-from eoe.training.ad_trainer import ADTrainer
-from eoe.datasets import str_labels
+from src.eoe.training.ad_trainer import ADTrainer
+from src.eoe.datasets import str_labels
 
 
 def raise_error(t: str):

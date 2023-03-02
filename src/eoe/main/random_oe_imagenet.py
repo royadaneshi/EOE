@@ -7,10 +7,10 @@ import torchvision.transforms as transforms
 from torchvision.datasets import VisionDataset
 from torchvision.transforms import Compose
 
-from eoe.evolve import evaluate
-from eoe.main import ms_argsparse, evolve_trainer, rand_pick_setup
-from eoe.models.resnet import WideResNet
-from eoe.training.ad_trainer import ADTrainer
+from src.eoe.evolve import evaluate
+from src.eoe.main import ms_argsparse, evolve_trainer, rand_pick_setup
+from src.eoe.models.resnet import WideResNet
+from src.eoe.training.ad_trainer import ADTrainer
 
 
 def init() -> Tuple[ADTrainer, VisionDataset, Namespace]:
