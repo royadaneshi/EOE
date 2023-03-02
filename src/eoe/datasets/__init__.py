@@ -12,6 +12,7 @@ from eoe.datasets.fmnist import ADFMNIST
 from eoe.datasets.imagenet import ADImageNet, ADImageNet21k, ADImageNet21kSubSet
 from eoe.datasets.imagenetoe import ADImageNetOE
 from eoe.datasets.mnist import ADMNIST, ADEMNIST
+from eoe.datasets.svhn import ADSVHN
 from eoe.datasets.mvtec import ADMvTec
 from eoe.datasets.tinyimages import ADTinyImages
 from eoe.utils.logger import Logger
@@ -19,7 +20,7 @@ from eoe.utils.transformations import TRANSFORMS, get_transform, ConditionalComp
 
 DS_CHOICES = (  # list of implemented datasets (most can also be used as OE)
     'cifar10', 'imagenet', 'cifar100', 'imagenet21k', 'tinyimages', 'mvtec', 'imagenetoe', 'fmnist', 'cub', 'dtd',
-    'imagenet21ksubset', 'mnist', 'emnist'
+    'imagenet21ksubset', 'mnist', 'emnist', 'svhn'
 )
 TRAIN_NOMINAL_ID = 0
 TRAIN_OE_ID = 1
@@ -108,7 +109,7 @@ def get_raw_shape(train_transform: Compose, dataset_name: str) -> Tuple[int, int
             return (3, *t.size)
     else:
         size = {  # default
-            'cifar10': 32, 'mvtec': 256, 'imagenet': 256, 'mnist': 28, 'emnist': 28,
+            'cifar10': 32, 'mvtec': 256, 'imagenet': 256, 'mnist': 28, 'emnist': 28,'svhn':32,
             'cifar100': 32, 'imagenet21k': 256, 'tinyimages': 32, 'confetti': 256, 'color': 32,
             'fmnist': 28, 'cub': 256, 'dtd': 256, 'imagenet21ksubset': 256,
         }[dataset_name]
@@ -117,7 +118,8 @@ def get_raw_shape(train_transform: Compose, dataset_name: str) -> Tuple[int, int
 
 def load_dataset(dataset_name: str, data_path: str, normal_classes: List[int], nominal_label: int,
                  train_transform: Compose, test_transform: Compose, logger: Logger = None,
-                 oe_name: str = None, oe_limit_samples: Union[int, List[int]] = np.infty, oe_limit_classes: int = np.infty,
+                 oe_name: str = None, oe_limit_samples: Union[int, List[int]] = np.infty,
+                 oe_limit_classes: int = np.infty,
                  msms: List[MSM] = ()) -> TorchvisionDataset:
     """
     Prepares a dataset, includes setting up all the necessary attributes such as a list of filepaths and labels.
@@ -174,7 +176,8 @@ def load_dataset(dataset_name: str, data_path: str, normal_classes: List[int], n
             ])
             limit = np.infty
         else:  # oe case
-            train_classes = sorted(np.random.choice(list(range(no_classes(name))), min(no_classes(name), oe_limit_classes), False))
+            train_classes = sorted(
+                np.random.choice(list(range(no_classes(name))), min(no_classes(name), oe_limit_classes), False))
             train_label = 1 - nominal_label
             total_train_transform = deepcopy(normal_dataset.train_transform)
             total_test_transform = deepcopy(normal_dataset.test_transform)
@@ -184,7 +187,8 @@ def load_dataset(dataset_name: str, data_path: str, normal_classes: List[int], n
             ])
             test_conditional_transform = None
         args = (
-            data_path, train_classes, train_label, total_train_transform, total_test_transform, raw_shape, logger, limit,
+            data_path, train_classes, train_label, total_train_transform, total_test_transform, raw_shape, logger,
+            limit,
             train_conditional_transform, test_conditional_transform
         )
         if name == 'cifar10':
@@ -206,6 +210,8 @@ def load_dataset(dataset_name: str, data_path: str, normal_classes: List[int], n
             dataset = ADFMNIST(*args)
         elif name == 'mnist':
             dataset = ADMNIST(*args)
+        elif name =='svhn':
+            dataset=ADSVHN(*args)
         elif name == 'emnist':
             dataset = ADEMNIST(*args)
         elif name == 'cub':
@@ -245,6 +251,7 @@ def no_classes(dataset_name: str) -> int:
         'dtd': 47,
         'imagenet21ksubset': 21811,
         'mnist': 10,
+        'svhn':10,
         'emnist': 26
     }[dataset_name]
 
@@ -291,51 +298,71 @@ def str_labels(dataset_name) -> List[str]:
         'cub': [
             'Black_footed_Albatross', 'Laysan_Albatross', 'Sooty_Albatross', 'Groove_billed_Ani', 'Crested_Auklet',
             'Least_Auklet', 'Parakeet_Auklet', 'Rhinoceros_Auklet', 'Brewer_Blackbird', 'Red_winged_Blackbird',
-            'Rusty_Blackbird', 'Yellow_headed_Blackbird', 'Bobolink', 'Indigo_Bunting', 'Lazuli_Bunting', 'Painted_Bunting',
+            'Rusty_Blackbird', 'Yellow_headed_Blackbird', 'Bobolink', 'Indigo_Bunting', 'Lazuli_Bunting',
+            'Painted_Bunting',
             'Cardinal', 'Spotted_Catbird', 'Gray_Catbird', 'Yellow_breasted_Chat', 'Eastern_Towhee', 'Chuck_will_Widow',
-            'Brandt_Cormorant', 'Red_faced_Cormorant', 'Pelagic_Cormorant', 'Bronzed_Cowbird', 'Shiny_Cowbird', 'Brown_Creeper',
+            'Brandt_Cormorant', 'Red_faced_Cormorant', 'Pelagic_Cormorant', 'Bronzed_Cowbird', 'Shiny_Cowbird',
+            'Brown_Creeper',
             'American_Crow', 'Fish_Crow', 'Black_billed_Cuckoo', 'Mangrove_Cuckoo', 'Yellow_billed_Cuckoo',
-            'Gray_crowned_Rosy_Finch', 'Purple_Finch', 'Northern_Flicker', 'Acadian_Flycatcher', 'Great_Crested_Flycatcher',
+            'Gray_crowned_Rosy_Finch', 'Purple_Finch', 'Northern_Flicker', 'Acadian_Flycatcher',
+            'Great_Crested_Flycatcher',
             'Least_Flycatcher', 'Olive_sided_Flycatcher', 'Scissor_tailed_Flycatcher', 'Vermilion_Flycatcher',
             'Yellow_bellied_Flycatcher', 'Frigatebird', 'Northern_Fulmar', 'Gadwall', 'American_Goldfinch',
-            'European_Goldfinch', 'Boat_tailed_Grackle', 'Eared_Grebe', 'Horned_Grebe', 'Pied_billed_Grebe', 'Western_Grebe',
+            'European_Goldfinch', 'Boat_tailed_Grackle', 'Eared_Grebe', 'Horned_Grebe', 'Pied_billed_Grebe',
+            'Western_Grebe',
             'Blue_Grosbeak', 'Evening_Grosbeak', 'Pine_Grosbeak', 'Rose_breasted_Grosbeak', 'Pigeon_Guillemot',
-            'California_Gull', 'Glaucous_winged_Gull', 'Heermann_Gull', 'Herring_Gull', 'Ivory_Gull', 'Ring_billed_Gull',
+            'California_Gull', 'Glaucous_winged_Gull', 'Heermann_Gull', 'Herring_Gull', 'Ivory_Gull',
+            'Ring_billed_Gull',
             'Slaty_backed_Gull', 'Western_Gull', 'Anna_Hummingbird', 'Ruby_throated_Hummingbird', 'Rufous_Hummingbird',
             'Green_Violetear', 'Long_tailed_Jaeger', 'Pomarine_Jaeger', 'Blue_Jay', 'Florida_Jay', 'Green_Jay',
-            'Dark_eyed_Junco', 'Tropical_Kingbird', 'Gray_Kingbird', 'Belted_Kingfisher', 'Green_Kingfisher', 'Pied_Kingfisher',
-            'Ringed_Kingfisher', 'White_breasted_Kingfisher', 'Red_legged_Kittiwake', 'Horned_Lark', 'Pacific_Loon', 'Mallard',
-            'Western_Meadowlark', 'Hooded_Merganser', 'Red_breasted_Merganser', 'Mockingbird', 'Nighthawk', 'Clark_Nutcracker',
-            'White_breasted_Nuthatch', 'Baltimore_Oriole', 'Hooded_Oriole', 'Orchard_Oriole', 'Scott_Oriole', 'Ovenbird',
+            'Dark_eyed_Junco', 'Tropical_Kingbird', 'Gray_Kingbird', 'Belted_Kingfisher', 'Green_Kingfisher',
+            'Pied_Kingfisher',
+            'Ringed_Kingfisher', 'White_breasted_Kingfisher', 'Red_legged_Kittiwake', 'Horned_Lark', 'Pacific_Loon',
+            'Mallard',
+            'Western_Meadowlark', 'Hooded_Merganser', 'Red_breasted_Merganser', 'Mockingbird', 'Nighthawk',
+            'Clark_Nutcracker',
+            'White_breasted_Nuthatch', 'Baltimore_Oriole', 'Hooded_Oriole', 'Orchard_Oriole', 'Scott_Oriole',
+            'Ovenbird',
             'Brown_Pelican', 'White_Pelican', 'Western_Wood_Pewee', 'Sayornis', 'American_Pipit', 'Whip_poor_Will',
-            'Horned_Puffin', 'Common_Raven', 'White_necked_Raven', 'American_Redstart', 'Geococcyx', 'Loggerhead_Shrike',
+            'Horned_Puffin', 'Common_Raven', 'White_necked_Raven', 'American_Redstart', 'Geococcyx',
+            'Loggerhead_Shrike',
             'Great_Grey_Shrike', 'Baird_Sparrow', 'Black_throated_Sparrow', 'Brewer_Sparrow', 'Chipping_Sparrow',
-            'Clay_colored_Sparrow', 'House_Sparrow', 'Field_Sparrow', 'Fox_Sparrow', 'Grasshopper_Sparrow', 'Harris_Sparrow',
+            'Clay_colored_Sparrow', 'House_Sparrow', 'Field_Sparrow', 'Fox_Sparrow', 'Grasshopper_Sparrow',
+            'Harris_Sparrow',
             'Henslow_Sparrow', 'Le_Conte_Sparrow', 'Lincoln_Sparrow', 'Nelson_Sharp_tailed_Sparrow', 'Savannah_Sparrow',
             'Seaside_Sparrow', 'Song_Sparrow', 'Tree_Sparrow', 'Vesper_Sparrow', 'White_crowned_Sparrow',
             'White_throated_Sparrow', 'Cape_Glossy_Starling', 'Bank_Swallow', 'Barn_Swallow', 'Cliff_Swallow',
             'Tree_Swallow', 'Scarlet_Tanager', 'Summer_Tanager', 'Artic_Tern', 'Black_Tern', 'Caspian_Tern',
             'Common_Tern', 'Elegant_Tern', 'Forsters_Tern', 'Least_Tern', 'Green_tailed_Towhee', 'Brown_Thrasher',
             'Sage_Thrasher', 'Black_capped_Vireo', 'Blue_headed_Vireo', 'Philadelphia_Vireo', 'Red_eyed_Vireo',
-            'Warbling_Vireo', 'White_eyed_Vireo', 'Yellow_throated_Vireo', 'Bay_breasted_Warbler', 'Black_and_white_Warbler',
-            'Black_throated_Blue_Warbler', 'Blue_winged_Warbler', 'Canada_Warbler', 'Cape_May_Warbler', 'Cerulean_Warbler',
+            'Warbling_Vireo', 'White_eyed_Vireo', 'Yellow_throated_Vireo', 'Bay_breasted_Warbler',
+            'Black_and_white_Warbler',
+            'Black_throated_Blue_Warbler', 'Blue_winged_Warbler', 'Canada_Warbler', 'Cape_May_Warbler',
+            'Cerulean_Warbler',
             'Chestnut_sided_Warbler', 'Golden_winged_Warbler', 'Hooded_Warbler', 'Kentucky_Warbler', 'Magnolia_Warbler',
-            'Mourning_Warbler', 'Myrtle_Warbler', 'Nashville_Warbler', 'Orange_crowned_Warbler', 'Palm_Warbler', 'Pine_Warbler',
+            'Mourning_Warbler', 'Myrtle_Warbler', 'Nashville_Warbler', 'Orange_crowned_Warbler', 'Palm_Warbler',
+            'Pine_Warbler',
             'Prairie_Warbler', 'Prothonotary_Warbler', 'Swainson_Warbler', 'Tennessee_Warbler', 'Wilson_Warbler',
-            'Worm_eating_Warbler', 'Yellow_Warbler', 'Northern_Waterthrush', 'Louisiana_Waterthrush', 'Bohemian_Waxwing',
+            'Worm_eating_Warbler', 'Yellow_Warbler', 'Northern_Waterthrush', 'Louisiana_Waterthrush',
+            'Bohemian_Waxwing',
             'Cedar_Waxwing', 'American_Three_toed_Woodpecker', 'Pileated_Woodpecker', 'Red_bellied_Woodpecker',
             'Red_cockaded_Woodpecker', 'Red_headed_Woodpecker', 'Downy_Woodpecker', 'Bewick_Wren', 'Cactus_Wren',
             'Carolina_Wren', 'House_Wren', 'Marsh_Wren', 'Rock_Wren', 'Winter_Wren', 'Common_Yellowthroat'
         ],
         'dtd': [
             'banded', 'blotchy', 'braided', 'bubbly', 'bumpy', 'chequered', 'cobwebbed', 'cracked', 'crosshatched',
-            'crystalline', 'dotted', 'fibrous', 'flecked', 'freckled', 'frilly', 'gauzy', 'grid', 'grooved', 'honeycombed',
-            'interlaced', 'knitted', 'lacelike', 'lined', 'marbled', 'matted', 'meshed', 'paisley', 'perforated', 'pitted',
+            'crystalline', 'dotted', 'fibrous', 'flecked', 'freckled', 'frilly', 'gauzy', 'grid', 'grooved',
+            'honeycombed',
+            'interlaced', 'knitted', 'lacelike', 'lined', 'marbled', 'matted', 'meshed', 'paisley', 'perforated',
+            'pitted',
             'pleated', 'polka-dotted', 'porous', 'potholed', 'scaly', 'smeared', 'spiralled', 'sprinkled', 'stained',
             'stratified', 'striped', 'studded', 'swirly', 'veined', 'waffled', 'woven', 'wrinkled', 'zigzagged'
         ],
         'mnist': [
-          "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+        ],
+        'svhn': [
+            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
         ],
         'emnist': list(range(26))  # ?
     }[dataset_name]
