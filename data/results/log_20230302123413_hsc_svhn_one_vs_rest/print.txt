@@ -1,0 +1,2 @@
+Successfully saved code at /home/ubuntu/apply/lab_Dr_Rohban/eoe/data/results/./log_20230302123413_hsc_svhn_one_vs_rest/src.tar.gz
+------ start training cls 0 "zero" ------

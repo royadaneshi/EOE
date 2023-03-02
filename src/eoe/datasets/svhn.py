@@ -24,12 +24,12 @@ class ADSVHN(TorchvisionDataset):
         )
 
         self._train_set = SVHN(
-            self.root, train=True, download=True, transform=self.train_transform,
+            self.root, split='train', download=True, transform=self.train_transform,
             target_transform=self.target_transform, conditional_transform=self.train_conditional_transform
         )
         self._train_set = self.create_subset(self._train_set, self._train_set.targets)
         self._test_set = SVHN(
-            root=self.root, train=False, download=True, transform=self.test_transform,
+            root=self.root,split='test', download=True, transform=self.test_transform,
             target_transform=self.target_transform, conditional_transform=self.test_conditional_transform
         )
         self._test_set = Subset(self._test_set, list(range(len(self._test_set))))  # create improper subset with all indices

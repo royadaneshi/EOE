@@ -1,0 +1,22 @@
+{
+   "train_transform": [],
+   "test_transform": [],
+   "dataset": "svhn",
+   "oe_dataset": "svhn",
+   "datapath": "/home/ubuntu/apply/lab_Dr_Rohban/eoe/data/datasets",
+   "logger": "<eoe.utils.logger.Logger object at 0x7f225b9cc190>",
+   "epochs": 200,
+   "lr": 0.001,
+   "wdk": 0,
+   "milestones": [
+      100,
+      150
+   ],
+   "batch_size": 128,
+   "ad_mode": "one_vs_rest",
+   "device": "device(type='cuda', index=0)",
+   "oe_limit_samples": Infinity,
+   "oe_limit_classes": Infinity,
+   "msms": [],
+   "workers": 2
+}
