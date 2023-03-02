@@ -4,19 +4,19 @@ from typing import List, Union, Tuple
 import numpy as np
 from torchvision.transforms import Resize, Compose
 
-from src.eoe.datasets.bases import TorchvisionDataset, CombinedDataset
-from src.eoe.datasets.cifar import ADCIFAR10, ADCIFAR100
-from src.eoe.datasets.cub import ADCUB
-from src.eoe.datasets.dtd import ADDTD
-from src.eoe.datasets.fmnist import ADFMNIST
-from src.eoe.datasets.imagenet import ADImageNet, ADImageNet21k, ADImageNet21kSubSet
-from src.eoe.datasets.imagenetoe import ADImageNetOE
-from src.eoe.datasets.mnist import ADMNIST, ADEMNIST
-from src.eoe.datasets.svhn import ADSVHN
-from src.eoe.datasets.mvtec import ADMvTec
-from src.eoe.datasets.tinyimages import ADTinyImages
-from src.eoe.utils.logger import Logger
-from src.eoe.utils.transformations import TRANSFORMS, get_transform, ConditionalCompose
+from eoe.datasets.bases import TorchvisionDataset, CombinedDataset
+from eoe.datasets.cifar import ADCIFAR10, ADCIFAR100
+from eoe.datasets.cub import ADCUB
+from eoe.datasets.dtd import ADDTD
+from eoe.datasets.fmnist import ADFMNIST
+from eoe.datasets.imagenet import ADImageNet, ADImageNet21k, ADImageNet21kSubSet
+from eoe.datasets.imagenetoe import ADImageNetOE
+from eoe.datasets.mnist import ADMNIST, ADEMNIST
+from eoe.datasets.svhn import ADSVHN
+from eoe.datasets.mvtec import ADMvTec
+from eoe.datasets.tinyimages import ADTinyImages
+from eoe.utils.logger import Logger
+from eoe.utils.transformations import TRANSFORMS, get_transform, ConditionalCompose
 
 DS_CHOICES = (  # list of implemented datasets (most can also be used as OE)
     'cifar10', 'imagenet', 'cifar100', 'imagenet21k', 'tinyimages', 'mvtec', 'imagenetoe', 'fmnist', 'cub', 'dtd',

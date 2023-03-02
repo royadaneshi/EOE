@@ -11,9 +11,9 @@ from deap.tools.selection import attrgetter
 from torch import Tensor
 from torch.utils.data import Subset
 
-from src.eoe.evolve.tree import Node, Tree, EvolNode, Individual
-from src.eoe.training.ad_trainer import ADTrainer
-from src.eoe.utils.logger import Logger
+from eoe.evolve.tree import Node, Tree, EvolNode, Individual
+from eoe.training.ad_trainer import ADTrainer
+from eoe.utils.logger import Logger
 
 
 def match_samples(samples1: Tensor, samples2: Tensor) -> List[int]:

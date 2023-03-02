@@ -2,8 +2,8 @@ import numpy as np
 import torchvision.transforms as transforms
 from torchvision.transforms import Compose
 
-from src.eoe.main import default_argsparse, create_trainer, load_setup
-from src.eoe.models.cnn import CNN28
+from eoe.main import default_argsparse, create_trainer, load_setup
+from eoe.models.cnn import CNN28
 
 if __name__ == '__main__':
     def modify_parser(parser):

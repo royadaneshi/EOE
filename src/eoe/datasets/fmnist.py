@@ -6,9 +6,9 @@ import torchvision.transforms as transforms
 from PIL import Image
 import torchvision.datasets
 from torch.utils.data import Subset
-from src.eoe.datasets.bases import TorchvisionDataset
-from src.eoe.utils.logger import Logger
-from src.eoe.utils.transformations import ConditionalCompose
+from eoe.datasets.bases import TorchvisionDataset
+from eoe.utils.logger import Logger
+from eoe.utils.transformations import ConditionalCompose
 
 
 class ADFMNIST(TorchvisionDataset):

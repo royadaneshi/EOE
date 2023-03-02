@@ -10,9 +10,9 @@ from torchvision.datasets.folder import DatasetFolder, default_loader, IMG_EXTEN
 from torchvision.datasets.imagenet import ImageNet
 from torchvision.datasets.imagenet import verify_str_arg, load_meta_file
 
-from src.eoe.datasets.bases import TorchvisionDataset
-from src.eoe.utils.logger import Logger
-from src.eoe.utils.transformations import ConditionalCompose
+from eoe.datasets.bases import TorchvisionDataset
+from eoe.utils.logger import Logger
+from eoe.utils.transformations import ConditionalCompose
 
 
 class ADImageNetOE(TorchvisionDataset):

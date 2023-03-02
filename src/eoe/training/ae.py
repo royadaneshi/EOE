@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
-from src.eoe.training.ad_trainer import ADTrainer
+from eoe.training.ad_trainer import ADTrainer
 
 
 class AETrainer(ADTrainer):

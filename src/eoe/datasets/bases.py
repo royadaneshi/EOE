@@ -14,10 +14,10 @@ from torchvision.datasets import VisionDataset
 from torchvision.transforms import Compose
 from tqdm import tqdm
 
-from src.eoe.utils.logger import Logger
-from src.eoe.utils.stats import RunningStats
-from src.eoe.utils.transformations import ConditionalCompose
-from src.eoe.utils.transformations import GPU_TRANSFORMS, Normalize, GlobalContrastNormalization
+from eoe.utils.logger import Logger
+from eoe.utils.stats import RunningStats
+from eoe.utils.transformations import ConditionalCompose
+from eoe.utils.transformations import GPU_TRANSFORMS, Normalize, GlobalContrastNormalization
 
 GCN_NORM = 1
 STD_NORM = 0

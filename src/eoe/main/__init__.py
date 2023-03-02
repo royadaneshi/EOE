@@ -18,19 +18,19 @@ from deap import base, creator, tools
 from torchvision.datasets import VisionDataset
 from torchvision.transforms import Compose
 
-from src.eoe.datasets import DS_CHOICES as IMG_DS_CHOICES, load_dataset, DS_PARTS
-from src.eoe.datasets import MSM
-from src.eoe.datasets import TRAIN_NOMINAL_ID, TRAIN_OE_ID
-from src.eoe.datasets import no_classes
-from src.eoe.evolve import mutate_individual, mate_individuals, init_individual, evaluate_individual, select_individual
-from src.eoe.evolve import replace_individuals_randomly
-from src.eoe.evolve.tree import EvolNode, Tree, Individual
-from src.eoe.training import TRAINER
-from src.eoe.training.ad_trainer import ADTrainer
-from src.eoe.utils.logger import Logger
-from src.eoe.utils.logger import SetupEncoder
-from src.eoe.utils.logger import time_format
-from src.eoe.utils.transformations import TRANSFORMS
+from eoe.datasets import DS_CHOICES as IMG_DS_CHOICES, load_dataset, DS_PARTS
+from eoe.datasets import MSM
+from eoe.datasets import TRAIN_NOMINAL_ID, TRAIN_OE_ID
+from eoe.datasets import no_classes
+from eoe.evolve import mutate_individual, mate_individuals, init_individual, evaluate_individual, select_individual
+from eoe.evolve import replace_individuals_randomly
+from eoe.evolve.tree import EvolNode, Tree, Individual
+from eoe.training import TRAINER
+from eoe.training.ad_trainer import ADTrainer
+from eoe.utils.logger import Logger
+from eoe.utils.logger import SetupEncoder
+from eoe.utils.logger import time_format
+from eoe.utils.transformations import TRANSFORMS
 
 filterwarnings(action='ignore', category=DeprecationWarning, module='torch')
 cv2.setNumThreads(0)  # possible deadlock fix?
