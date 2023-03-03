@@ -59,6 +59,7 @@ class SVHN(torchvision.datasets.SVHN):
         # print(*kwargs)
         # print("----------------------------")
         # super(SVHN,self).__init__(*args)
+        self.targets=self.labels
         self.conditional_transform = conditional_transform
         self.pre_transform, self.post_transform = None, None
         if self.transform is not None and self.conditional_transform is not None:
